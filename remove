@@ -24,13 +24,7 @@ fi
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $DIR
 
-
-if [ -f /bin/systemctl ]; then
-	echo -e "\033[0;33mDisabling the systemd daemon...\033[0m"
-    systemctl stop akbl
-    systemctl disable akbl
-fi
-
+./prerm
 
 echo -e "\033[0;33mRemoving files and directories..\033[0m"
 
