@@ -26,8 +26,10 @@ fi
 
 echo -e "\033[0;33mLinking python...\033[0m"
 
+AKBL_PYTHON_VERSIONS=("python3.4" "python3.5" "python3.6" "python3.7" "python3.8" "python3.9")
+
 for python_version in "${AKBL_PYTHON_VERSIONS[@]}"; do
     if [ -d /usr/lib/$python_version ]; then
-        ln -s /usr/lib/python3/AKBL /usr/lib/$python_version/AKBL && echo -e "\033[0;33m$python_version linked.\033[0m"
+        ln -s /usr/lib/python3/AKBL /usr/lib/$python_version/AKBL && echo -e "\033[0;33m AKBL link created to $python_version\033[0m"
     fi
 done

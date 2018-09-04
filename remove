@@ -24,10 +24,28 @@ fi
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $DIR
 
-./prerm
+
+if [ -f /bin/systemctl ]; then
+	echo -e "\033[0;33mDisabling the systemd daemon...\033[0m"
+    systemctl stop akbl
+    systemctl disable akbl
+fi
+
 
 echo -e "\033[0;33mRemoving files and directories..\033[0m"
 
+AKBL_PYTHON_VERSIONS=("python3.4" "python3.5" "python3.6" "python3.7" "python3.8" "python3.9")
+
+for python_version in "${AKBL_PYTHON_VERSIONS[@]}"; do
+
+    if [ -f /usr/lib/$python_version/AKBL ] || [ -d /usr/lib/$python_version/AKBL ]; then
+        rm -f /usr/lib/$python_version/AKBL && echo -e "\033[0;33m Link AKBL removed from $python_version\033[0m"
+    fi 
+    if [ -f /usr/lib/$python_version/AKBL.py ] || [ -d /usr/lib/$python_version/AKBL.py ]; then
+        rm -f /usr/lib/$python_version/AKBL.py && echo -e "\033[0;33m Link AKBL.py removed from $python_version\033[0m"
+    fi 
+    
+done
 
 if [ -f /usr/bin/akbl ]; then
 	rm -f /usr/bin/akbl
